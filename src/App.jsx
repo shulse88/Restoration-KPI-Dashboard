@@ -1,6 +1,14 @@
-import React, { useState } from "react";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { useState } from "react";
+import Logo from "./assets/restoration-logo.png";
 
-export default function App() {
+const sampleData = [
+  { name: "Week 1", showRate: 55, caseAcceptance: 60, retention: 70 },
+  { name: "Week 2", showRate: 63, caseAcceptance: 65, retention: 72 },
+  { name: "Week 3", showRate: 70, caseAcceptance: 75, retention: 80 },
+];
+
+function RestorationKPIDashboard() {
   const [newPatients, setNewPatients] = useState(0);
   const [showRate, setShowRate] = useState(0);
   const [caseAcceptance, setCaseAcceptance] = useState(0);
@@ -21,54 +29,71 @@ export default function App() {
   const totalCost = visits * costPerVisit;
 
   return (
-    <div style={{ maxWidth: "800px", margin: "0 auto", padding: "2rem", fontFamily: "Arial" }}>
-      <h1 style={{ textAlign: "center" }}>Restoration KPI Dashboard</h1>
+    <div className="p-6">
+      <div className="mb-8 text-center">
+        <img src={Logo} alt="Restoration Chiropractic Logo" width={200} height={80} className="mx-auto" />
+      </div>
 
-      <label>
-        New Patients This Week:
-        <input type="number" value={newPatients} onChange={(e) => setNewPatients(Number(e.target.value))} />
-      </label>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="p-4 border rounded shadow">
+          <h2 className="text-xl font-bold">New Patients This Week</h2>
+          <input type="number" value={newPatients} onChange={e => setNewPatients(e.target.value)} className="w-full border p-2" />
+        </div>
 
-      <label>
-        Show Rate (%):
-        <input type="number" value={showRate} onChange={(e) => setShowRate(Number(e.target.value))} />
-      </label>
+        <div className="p-4 border rounded shadow">
+          <h2 className="text-xl font-bold">Show Rate (%)</h2>
+          <input type="number" value={showRate} onChange={e => setShowRate(e.target.value)} className="w-full border p-2" />
+        </div>
 
-      <label>
-        Case Acceptance (%):
-        <input type="number" value={caseAcceptance} onChange={(e) => setCaseAcceptance(Number(e.target.value))} />
-      </label>
+        <div className="p-4 border rounded shadow">
+          <h2 className="text-xl font-bold">Case Acceptance (%)</h2>
+          <input type="number" value={caseAcceptance} onChange={e => setCaseAcceptance(e.target.value)} className="w-full border p-2" />
+        </div>
 
-      <label>
-        Average Care Plan Value ($):
-        <input type="number" value={carePlanValue} onChange={(e) => setCarePlanValue(Number(e.target.value))} />
-      </label>
+        <div className="p-4 border rounded shadow">
+          <h2 className="text-xl font-bold">Average Care Plan Value ($)</h2>
+          <input type="number" value={carePlanValue} onChange={e => setCarePlanValue(e.target.value)} className="w-full border p-2" />
+        </div>
 
-      <label>
-        Retention Rate (%):
-        <input type="number" value={retentionRate} onChange={(e) => setRetentionRate(Number(e.target.value))} />
-      </label>
+        <div className="p-4 border rounded shadow">
+          <h2 className="text-xl font-bold">Retention Rate (%)</h2>
+          <input type="number" value={retentionRate} onChange={e => setRetentionRate(e.target.value)} className="w-full border p-2" />
+        </div>
 
-      <label>
-        Wellness Score (0–100):
-        <input type="number" value={wellnessScore} onChange={(e) => setWellnessScore(Number(e.target.value))} />
-        <strong> Grade: {getWellnessGrade(wellnessScore)}</strong>
-      </label>
+        <div className="p-4 border rounded shadow">
+          <h2 className="text-xl font-bold">Wellness Score (0–100)</h2>
+          <input type="number" value={wellnessScore} onChange={e => setWellnessScore(e.target.value)} className="w-full border p-2" />
+          <p className="text-lg font-semibold">Grade: {getWellnessGrade(wellnessScore)}</p>
+        </div>
 
-      <label>
-        Total Visits:
-        <input type="number" value={visits} onChange={(e) => setVisits(Number(e.target.value))} />
-      </label>
+        <div className="p-4 border rounded shadow">
+          <h2 className="text-xl font-bold">Care Plan Visits</h2>
+          <input type="number" value={visits} onChange={e => setVisits(e.target.value)} className="w-full border p-2" />
+          <h2 className="text-xl font-bold">Cost Per Visit ($)</h2>
+          <input type="number" value={costPerVisit} onChange={e => setCostPerVisit(e.target.value)} className="w-full border p-2" />
+          <p className="text-lg font-semibold">Total Plan Cost: ${totalCost.toFixed(2)}</p>
+        </div>
 
-      <label>
-        Cost Per Visit ($):
-        <input type="number" value={costPerVisit} onChange={(e) => setCostPerVisit(Number(e.target.value))} />
-        <strong> Total Plan Cost: ${totalCost.toFixed(2)}</strong>
-      </label>
+        <div className="col-span-full p-4 border rounded shadow">
+          <h2 className="text-xl font-bold mb-4">KPI Trends</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={sampleData}>
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="showRate" stroke="#8884d8" name="Show Rate" />
+              <Line type="monotone" dataKey="caseAcceptance" stroke="#82ca9d" name="Case Acceptance" />
+              <Line type="monotone" dataKey="retention" stroke="#ffc658" name="Retention" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
 
-      <button style={{ marginTop: "20px", padding: "10px", backgroundColor: "#0070f3", color: "#fff", border: "none" }}>
-        Run Gap Analysis
-      </button>
+        <div className="col-span-full text-center">
+          <button className="w-full p-2 bg-blue-600 text-white rounded">Run Gap Analysis & Suggestions</button>
+        </div>
+      </div>
     </div>
   );
 }
+
+export default RestorationKPIDashboard;
