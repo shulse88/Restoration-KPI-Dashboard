@@ -1,45 +1,41 @@
-
-import { Card, CardContent } from "./components/ui/card";
-import { Button } from "./components/ui/button";
-import { Input } from "./components/ui/input";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { useState } from "react";
-import Logo from "./assets/restoration-logo.png";
-
-const sampleData = [
-  { name: "Week 1", showRate: 55, caseAcceptance: 60, retention: 70 },
-  { name: "Week 2", showRate: 63, caseAcceptance: 65, retention: 72 },
-  { name: "Week 3", showRate: 70, caseAcceptance: 75, retention: 80 },
-];
-
-export default function RestorationKPIDashboard() {
-  const [newPatients, setNewPatients] = useState(0);
-  const [showRate, setShowRate] = useState(0);
-  const [caseAcceptance, setCaseAcceptance] = useState(0);
-  const [carePlanValue, setCarePlanValue] = useState(0);
-  const [retentionRate, setRetentionRate] = useState(0);
-  const [wellnessScore, setWellnessScore] = useState(0);
-  const [visits, setVisits] = useState(0);
-  const [costPerVisit, setCostPerVisit] = useState(0);
-
-  const getWellnessGrade = (score) => {
-    if (score >= 90) return "A";
-    if (score >= 80) return "B";
-    if (score >= 70) return "C";
-    if (score >= 60) return "D";
-    return "F";
-  };
-
-  const totalCost = visits * costPerVisit;
-
-  return (
-    <div className="p-6">
-      <div className="mb-8 text-center">
-        <img src={Logo} alt="Restoration Chiropractic Logo" width={200} height={80} className="mx-auto" />
-      </div>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {/* KPI components here */}
-      </div>
-    </div>
-  );
-}
+[08:50:46.455] Running build in Washington, D.C., USA (East) – iad1
+[08:50:46.456] Build machine configuration: 2 cores, 8 GB
+[08:50:46.480] Cloning github.com/shulse88/Restoration-KPI-Dashboard (Branch: main, Commit: 27b7fe5)
+[08:50:46.501] Skipping build cache, deployment was triggered without cache.
+[08:50:48.069] Cloning completed: 1.589s
+[08:50:51.037] Running "vercel build"
+[08:50:51.541] Vercel CLI 44.6.4
+[08:50:52.481] Running "install" command: `npm install`...
+[08:50:53.985] 
+[08:50:53.985] > restoration-kpi-dashboard@1.0.0 postinstall
+[08:50:53.986] > chmod +x ./node_modules/.bin/vite
+[08:50:53.986] 
+[08:50:54.009] 
+[08:50:54.009] added 3 packages, and audited 107 packages in 1s
+[08:50:54.010] 
+[08:50:54.010] 9 packages are looking for funding
+[08:50:54.011]   run `npm fund` for details
+[08:50:54.011] 
+[08:50:54.011] found 0 vulnerabilities
+[08:50:54.012] npm notice
+[08:50:54.012] npm notice New major version of npm available! 10.9.2 -> 11.5.2
+[08:50:54.013] npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.5.2
+[08:50:54.013] npm notice To update run: npm install -g npm@11.5.2
+[08:50:54.013] npm notice
+[08:50:54.777] 
+[08:50:54.778] > restoration-kpi-dashboard@1.0.0 build
+[08:50:54.778] > vite build
+[08:50:54.779] 
+[08:50:55.065] [36mvite v7.0.6 [32mbuilding for production...[36m[39m
+[08:50:55.125] transforming...
+[08:50:55.213] [32m✓[39m 11 modules transformed.
+[08:50:55.215] [31m✗[39m Build failed in 122ms
+[08:50:55.216] [31merror during build:
+[08:50:55.216] [31mCould not resolve "./components/ui/card" from "src/App.jsx"[31m
+[08:50:55.216] file: [36m/vercel/path0/src/App.jsx[31m
+[08:50:55.217]     at getRollupError (file:///vercel/path0/node_modules/rollup/dist/es/shared/parseAst.js:401:41)
+[08:50:55.217]     at error (file:///vercel/path0/node_modules/rollup/dist/es/shared/parseAst.js:397:42)
+[08:50:55.217]     at ModuleLoader.handleInvalidResolvedId (file:///vercel/path0/node_modules/rollup/dist/es/shared/node-entry.js:21490:24)
+[08:50:55.217]     at file:///vercel/path0/node_modules/rollup/dist/es/shared/node-entry.js:21450:26[39m
+[08:50:55.233] Error: Command "npm run build" exited with 1
+[08:50:58.151] Exiting build container
